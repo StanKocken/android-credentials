@@ -34,6 +34,7 @@ import com.google.android.gms.auth.api.credentials.CredentialRequest;
 import com.google.android.gms.auth.api.credentials.CredentialRequestResponse;
 import com.google.android.gms.auth.api.credentials.Credentials;
 import com.google.android.gms.auth.api.credentials.CredentialsClient;
+import com.google.android.gms.auth.api.credentials.CredentialsOpenYolo;
 import com.google.android.gms.auth.api.credentials.CredentialsOptions;
 import com.google.android.gms.auth.api.credentials.HintRequest;
 import com.google.android.gms.auth.api.credentials.IdToken;
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements
         CredentialsOptions options = new CredentialsOptions.Builder()
                 .forceEnableSaveDialog()
                 .build();
-        mCredentialsClient = Credentials.getClient(this, options);
+        mCredentialsClient = CredentialsOpenYolo.getClient(this, options);
     }
 
     @Override
@@ -121,9 +122,9 @@ public class MainActivity extends AppCompatActivity implements
             case RC_HINT:
                 // Drop into handling for RC_READ
             case RC_READ:
-                if (resultCode == RESULT_OK) {
+                Credential credential = CredentialsOpenYolo.getClient(this).getCredential(data);
+                if (credential != null) {
                     boolean isHint = (requestCode == RC_HINT);
-                    Credential credential = data.getParcelableExtra(Credential.EXTRA_KEY);
                     processRetrievedCredential(credential, isHint);
                 } else {
                     Log.e(TAG, "Credential Read: NOT OK");

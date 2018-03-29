@@ -25,4 +25,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-auth:11.8.0'
 
     compile 'com.google.api-client:google-api-client:1.22.0'
+
+    compile 'org.openyolo:openyolo-api:0.3.1' // TODO, change to "org.openyolo:openyolo-api-from-smartlock:0.3.1"
 }
